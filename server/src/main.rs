@@ -2,6 +2,7 @@ use warp::{Filter, http::Response};
 use serde_json;
 use client::{App, Data, FetchStatus};
 use sauron::prelude::*;
+use std::env;
 
 // Replace this with whatever data you're actually trying to return
 fn fake_api_call(name: String) -> Data {
@@ -68,6 +69,6 @@ async fn main() {
     );
 
     warp::serve(routes)
-        .run(([127, 0, 0, 1], 3030))
+        .run(([0, 0, 0, 0], env::var("PORT").expect("PORT variable should be set").parse().expect("PORT variable should be an integer")))
         .await;
 }
