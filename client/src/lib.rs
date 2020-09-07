@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[macro_use]
 extern crate log;
 
-const DATA_URL: &'static str = "http://localhost:3030/api";
+const DATA_URL: &'static str = "https://rust-ssr.herokuapp.com/api";
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum FetchStatus<T> {
