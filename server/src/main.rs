@@ -3,6 +3,7 @@ use serde_json;
 use client::{App, Data, FetchStatus};
 use sauron::prelude::*;
 use std::env;
+use percent_encoding;
 
 // Replace this with whatever data you're actually trying to return
 fn fake_api_call(name: String) -> Data {
@@ -33,7 +34,10 @@ async fn main() {
         let mut app = App::new();
 
         // Fetch API data for the argument and stuff it into the app
-        app.name = name.clone();
+        let decoded_name = percent_encoding::percent_decode_str(&name).decode_utf8();
+        if let Ok(decoded_name) = decoded_name {
+            app.name = decoded_name.to_string();
+        }
         let api_data = fake_api_call(name);
         app.data = FetchStatus::Complete(api_data);
 
